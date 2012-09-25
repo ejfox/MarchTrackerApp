@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8"/>
+	<title></title>
+	<!-- Place favicon.ico and apple-touch-icon.png in the root of your domain and delete these references -->
+	<link rel="shortcut icon" href="/favicon.ico">
+	<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+	
+	<!--[if lt IE 9]>
+		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+	<link rel="stylesheet" media="all" href=""/>
+	<meta name="viewport" content="width=device-width, initial-scale=1"/>
+	<!-- Adding "maximum-scale=1" fixes the Mobile Safari auto-zoom bug: http://filamentgroup.com/examples/iosScaleBug/ -->
+	
+	<!-- LESS framework stylesheet 
+	Should be compiled from style.less
+	I use http://wearekiss.com/simpless for auto-compiling on save
+	-->	
+	<link rel="stylesheet" href="style.css" type="text/css" media="screen" title="Primary Stylesheet" charset="utf-8">
+	
+	<!-- Bring in animate.css | http://daneden.me/animate/ -->	
+	<!--<link rel="stylesheet" href="animate.css" type="text/css" media="screen" title="no title" charset="utf-8"> -->
+			
+	<!-- Bring in jQuery first, lots of other stuff depends on it -->
+	<script src="js/jquery-1.7.1.min.js" type="text/javascript" charset="utf-8"></script>	
+
+	<!-- And underscore | http://documentcloud.github.com/underscore/	-->
+	<script src="js/underscore-min.js" type="text/javascript" charset="utf-8"></script>	
+
+	<!-- And D3 | https://github.com/mbostock/d3/wiki/API-Reference 	-->
+	
+	<script src="js/d3.v2.min.js" type="text/javascript" charset="utf-8"></script> 	
+	
+	<!-- And Lettering.js | https://github.com/davatron5000/Lettering.js 		
+	<script src="js/jquery.lettering.js" type="text/javascript" charset="utf-8"></script> -->
+	
+	<!-- And Scrollorama | http://johnpolacek.github.com/scrollorama/ 			
+	<script src="js/jquery.scrollorama.js" type="text/javascript" charset="utf-8"></script> -->
+	
+	<!-- And Tabletop | https://github.com/jsoma/tabletop 				
+	<script src="js/tabletop.js" type="text/javascript" charset="utf-8"></script> -->
+
+	<!-- And the Open Sans Google Webfont | https://www.google.com/webfonts#UsePlace:use/Collection:Open+Sans-->
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,400,700,800,300' rel='stylesheet' type='text/css'>	
+
+	<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>	
+	<script src="gmaps/gmaps.js" type="text/javascript" charset="utf-8"></script>	
+  
+	<script src="js/trunk8.js" type="text/javascript" charset="utf-8"></script>
+
+	<script src="js/jquery.timeinput.js" type="text/javascript" charset="utf-8"></script>
+
+	<script src="js/jquery.tipsy.js" type="text/javascript" charset="utf-8"></script>
+	
+	<script src="js/date.js" type="text/javascript" charset="utf-8"></script>
+	
+	
+</head>
+<body>
+<div id="container">
+	<div id="title">
+		<h1 id="maptitle" class="mapzoomreset"><img src="images/logo.png" alt="March Tracker"></h1>
+		<div id="event-metadata" style="display: inline-block; vertical-align: top;">
+			<input type="text" name="eventnumber" value="{{eventnumber}}" id="eventnumber">
+		</div>
+	</div>
+	
+	<div id="event-add" class="addbar">
+		<div id="submit-new-event">
+			<form action="/newevent" method="get" accept-charset="utf-8">
+				<input type="hidden" name="eventid" value="{{eventnumber}}" id="eventid">
+				<span style="margin-right: 24px;">Add event:</span>
+				<label for="location"><img src="images/glyphicons_242_google_maps.png" title="Add location" alt="Add location"></label><input type="text" name="location" value="Location" id="location"> 
+				<label for="time"><img src="images/glyphicons_054_clock.png" title="Add time" alt="Add time"></label><input type="text" name="time" value="Time" id="time">
+				<label for="shortdescription"><img src="images/glyphicons_151_edit.png" title="Add description" alt="Add description"></label><input type="text" name="shortdescription" value="Description" id="shortdescription"> 
+				<span onclick="$('#add-image').show();">
+					<img src="images/glyphicons_011_camera.png" alt="Add image" title="Add image" style="cursor: pointer;"></span><span id="add-image" style="display: none;">
+					<input type="text" name="imageurl" value="http://" id="imageurl">				
+				</span>				
+			
+			
+			<div id="add-event-controls" style="display: inline-block;">
+				<span id="quickadd" style="display: none;">
+					<label for="quickadd">Quick Add</label><input type="text" name="quickadd" value="" id="quickadd">									
+				</span>
+				<button id="add-new-event" title="Add event">+</button>
+				<button id="cancel-new-event" title="Cancel adding event" onclick="$(this).parent().parent().parent().parent().hide(); return false;">x</button>
+			</div>
+			</form>
+			{{#eventadded}}
+			<div id="event-added">
+				{{eventaddedtext}}
+				<li>Location: {{location}}</li>
+				<li>Time: {{time}}</li>
+				<li>Description: {{description}} </li>
+			</div>
+			{{/eventadded}}
+		</div>
+	</div>
+	
+	<div id="tweet-add" class="addbar" style="display: none !important;">
+		<form action="/newtweetevent" method="get" accept-charset="utf-8">
+			Add Tweet:		
+			<input type="text" name="tweeturl" value="Tweet URL" id="tweeturl">
+		</form>
+		<div id="add-event-controls" style="display: inline-block;">
+			<span id="quickadd" style="display: none;">
+				<label for="quickadd">Quick Add</label><input type="text" name="quickadd" value="" id="quickadd">									
+			</span>
+			<button id="add-new-event" title="Add event">+</button>
+			<button id="cancel-new-event" title="Cancel adding event" onclick="$(this).parent().parent().parent().parent().hide(); return false;">x</button>
+		</div>
+	</div>
+	
+	<div id="map" class="section">
+		
+	</div>
+
+	<div id="description">
+		<h4>Description</h4>
+		<div id="summary">
+			This "march tracker" is an experiment in an idea of laying out events of political marches on a google map. <a href="https://www.google.com/maps/ms?msa=0&msid=200010661405270055365.0004b689a116e2bd3c665">I have made experiments in this direction before</a>. But this is my first foray into a custom interface for displaying events on a map. I am using Google Maps not only to display events, but to make sensible guesses about where the march has been based on different updates of it's location. The idea is to have a map that is not only updatable in real-time with pictures / tweets / info for tactical reasons, but to serve as a historical document showing events of a march without losing chronological order or geographic perspective. Just as livestreamers provide an up-close-and-personal live view of the action, I would like this map to serve as a live overview of the action. 
+			<br />
+			<br />
+			Runs off JSON data that looks like 
+			<pre>{
+		        location: "Clay and 8th"
+		        text: "Another thing"
+		        img: "http://www.motherjones.com/files/images/occupy-oakland-wheelchair.jpg"        
+		        onroute: true
+		        time: "7:15PM"
+		    }
+
+		    {
+		        location: "Oak St. & 14th"
+		        text: "Imageless thing"    
+		        onroute: true
+		        time: "7:15PM"
+		    }</pre>
+		</div>
+
+		<h4>Events</h4>
+		<ol id="event-list">
+
+		</ol>
+	</div>
+	<div id="timeline-container">
+		<svg id="timeline"></svg>		
+	</div>
+	<small class="mapzoomreset" style="cursor: pointer;">Reset zoom</small>
+	
+</div>
+<script src="js/marchmap.js" type="text/javascript" charset="utf-8"></script>	
+
+<script type="text/javascript" charset="utf-8">
+$(document).ready(function(){
+	// use settings from the input's attributes (from the html5 spec)
+    // 30 min intervals
+    $("input[name='time']").timeInput();
+
+	$("#submit-new-event input").on('click', function() {
+		$(this).val("");
+	})
+	.blur(function(){
+		if($(this).val() == "" || $(this).val() == " ") {
+			if($(this).attr("id") === "location") {
+				$(this).val("Location")
+			}
+			else if($(this).attr("id") === "time") {
+				$(this).val("Time")
+			}
+			else if($(this).attr("id") === "shortdescription") {
+				$(this).val("Description")
+			}
+		}
+	})
+	
+	
+	$('#submit-new-event img').tipsy({gravity: 's', fade: true});
+	
+})
+</script>
+
+<script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
+</body>
+</html>

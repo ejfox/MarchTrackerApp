@@ -1,0 +1,706 @@
+/*---------------------------------------------------
+    LESS Elements 0.6
+  ---------------------------------------------------
+    A set of useful LESS mixins by Dmitry Fadeyev
+    Special thanks for mixin suggestions to:
+      Kris Van Herzeele,
+      Benoit Adam,
+      Portenart Emile-Victor,
+      Ryan Faerman
+
+    More info at: http://lesselements.com
+-----------------------------------------------------*/
+/*	Less Framework 4
+	http://lessframework.com
+	by Joni Korpi
+	License: http://opensource.org/licenses/mit-license.php	*/
+/*	Resets
+	------	*/
+/* apply a natural box layout model to all elements */
+/* from http://paulirish.com/2012/box-sizing-border-box-ftw/ */
+* {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+/* maxvoltar.com/archive/-webkit-font-smoothing */
+html {
+  -webkit-font-smoothing: antialiased;
+}
+pre {
+  padding: 15px;
+  white-space: pre;
+  /* CSS2 */
+
+  white-space: pre-wrap;
+  /* CSS 2.1 */
+
+  white-space: pre-line;
+  /* CSS 3 (and 2.1 as well, actually) */
+
+  word-wrap: break-word;
+  /* IE */
+
+}
+/* hand cursor on clickable input elements */
+label,
+input[type=button],
+input[type=submit],
+button {
+  cursor: pointer;
+}
+html,
+body,
+div,
+span,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+address,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+samp,
+small,
+strong,
+sub,
+sup,
+var,
+b,
+i,
+hr,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+figure,
+figcaption,
+hgroup,
+menu,
+footer,
+header,
+nav,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+article,
+aside,
+canvas,
+figure,
+figure img,
+figcaption,
+hgroup,
+footer,
+header,
+nav,
+section,
+audio,
+video {
+  display: block;
+}
+a img {
+  border: 0;
+}
+/*	Color variables
+	------------------	*/
+/* Highlight color, when user selects text */
+/* Link color, hover/visited will be generated from this */
+/* Selection colours (easy to forget) */
+::selection {
+  background: #b5bfcb;
+}
+::-moz-selection {
+  background: #b5bfcb;
+}
+img::selection {
+  background: transparent;
+}
+img::-moz-selection {
+  background: transparent;
+}
+body {
+  -webkit-tap-highlight-color: #b5bfcb;
+}
+/*	Typography presets
+	------------------	*/
+.gigantic {
+  font-size: 116px;
+  line-height: 120px;
+  letter-spacing: -2px;
+}
+.huge,
+h1 {
+  color: #000000;
+  font-size: 72px;
+  line-height: 78px;
+  letter-spacing: -1px;
+  font-weight: 800;
+  margin-bottom: 12px;
+}
+.large,
+h2 {
+  color: #262626;
+  font-size: 44px;
+  line-height: 48px;
+  font-weight: 800;
+  margin-bottom: 12px;
+}
+.bigger,
+h3 {
+  color: #2b2b2b;
+  font-size: 28px;
+  line-height: 36px;
+  font-weight: 800;
+  margin-bottom: 12px;
+}
+.big,
+h4 {
+  color: #333333;
+  font-size: 24px;
+  line-height: 30px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+body {
+  font: 17px/24px 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-weight: 400 !important;
+}
+strong {
+  font-weight: 400;
+}
+.small,
+small {
+  font-size: 13px;
+  line-height: 18px;
+}
+/*	Column class / mixins 
+	---------------------	*/
+.1-column {
+  width: 68px;
+}
+.2-column {
+  width: 160px;
+}
+.3-column {
+  width: 252px;
+}
+.4-column {
+  width: 344px;
+}
+.5-column {
+  width: 436px;
+}
+.6-column {
+  width: 528px;
+}
+.7-column {
+  width: 620px;
+}
+.8-column {
+  width: 712px;
+}
+.9-column {
+  width: 804px;
+}
+.10-column {
+  width: 896px;
+}
+/*		Default Layout: 992px. 
+		Gutters: 24px.
+		Outer margins: 48px.
+		Leftover space for scrollbars @1024px: 32px.
+-------------------------------------------------------------------------------
+cols    1     2      3      4      5      6      7      8      9      10
+px      68    160    252    344    436    528    620    712    804    896    */
+body {
+  width: 1200px;
+  padding: 32px 32px 32px;
+  padding-top: 0;
+  background: #f7f7f7;
+  color: #454545;
+  -webkit-text-size-adjust: 100%;
+  /* Stops Mobile Safari from auto-adjusting font-sizes */
+
+  margin-left: auto;
+  margin-right: auto;
+}
+a:link {
+  color: #10206d;
+  -webkit-transition: all 0.24s ease-in-out;
+  -moz-transition: all 0.24s ease-in-out;
+  transition: all 0.24s ease-in-out;
+}
+a:hover {
+  color: #060c2a;
+}
+a:visited {
+  color: #04081d;
+}
+h1 {
+  margin-top: 12px;
+  font-size: 18px;
+  line-height: 1em;
+  display: inline-block;
+}
+#container {
+  margin-left: auto;
+  margin-right: auto;
+}
+#title #event-metadata {
+  margin-top: 20px;
+}
+#title #event-metadata input {
+  width: 2.3em;
+  text-align: center;
+  border: 1px solid #CCC;
+  border-radius: 4px;
+}
+#map {
+  display: inline-block;
+  width: 720px;
+  height: 472px;
+  border: 6px solid white;
+  -webkit-transition: all 0.13s ease-out;
+  -moz-transition: all 0.13s ease-out;
+  transition: all 0.13s ease-out;
+  -webkit-box-shadow: 0 1px 7px rgba(0, 0, 0, 0.1);
+  -moz-box-shadow: 0 1px 7px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 7px rgba(0, 0, 0, 0.1);
+}
+#description {
+  padding: 18px 12px;
+  display: inline-block;
+  vertical-align: top;
+  height: 472px;
+  overflow: auto;
+  width: 400px;
+  margin-left: 8px;
+  border-radius: 3px;
+  -webkit-box-shadow: 0 2px 7px rgba(0, 0, 0, 0.1);
+  -moz-box-shadow: 0 2px 7px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 7px rgba(0, 0, 0, 0.1);
+  background-color: #ebebeb;
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#ebebeb), to(#ffffff));
+  background-image: -webkit-linear-gradient(top, #ebebeb, #ffffff);
+  background-image: -moz-linear-gradient(top, #ebebeb, #ffffff);
+  background-image: -o-linear-gradient(top, #ebebeb, #ffffff);
+  background-image: -ms-linear-gradient(top, #ebebeb, #ffffff);
+  background-image: linear-gradient(top, #ebebeb, #ffffff);
+  filter: progid:dximagetransform.microsoft.gradient(GradientType=0, StartColorStr='#ebebeb', EndColorStr='#ffffff');
+  background-attachment: fixed;
+}
+#description #summary {
+  color: black;
+  font-family: Georgia, serif;
+  font-size: 13px;
+  line-height: 1.4em;
+  margin-bottom: 22px;
+}
+#description #event-list li {
+  cursor: pointer;
+  list-style: none;
+  padding-bottom: 8px;
+  margin-bottom: 24px;
+}
+#description #event-list li small {
+  display: block;
+  opacity: 0.3;
+}
+#description #event-list li img {
+  display: block;
+  margin: 0;
+  padding: 0;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 12px;
+  cursor: default;
+  width: 320px;
+  border: 6px solid white;
+  -webkit-transition: all 0.13s ease-out;
+  -moz-transition: all 0.13s ease-out;
+  transition: all 0.13s ease-out;
+  -webkit-box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
+  -moz-box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
+}
+#description #event-list li img:hover {
+  -webkit-box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
+}
+#event-added {
+  background-color: #3B3B3B;
+  color: white;
+  padding: 4px 8px;
+  margin: 2px;
+  border-radius: 4px;
+}
+#event-added li {
+  display: inline-block;
+  margin-left: 20px;
+}
+.highlight {
+  background-color: #FDFFCE;
+}
+#timeline-container {
+  text-align: center;
+}
+.addbar {
+  position: relative;
+  font-size: 20px;
+  margin-bottom: 10px;
+  border-radius: 4px;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  border-bottom: 2px solid rgba(0, 0, 0, 0.18);
+  padding: 8px 12px;
+  /*background-color: #ffffff;*/
+
+  background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(255, 255, 255, 0.66)), to(rgba(214, 214, 214, 0.02)));
+  background-image: -webkit-linear-gradient(top, rgba(255, 255, 255, 0.66), rgba(214, 214, 214, 0.02));
+  background-image: -moz-linear-gradient(top, rgba(255, 255, 255, 0.66), rgba(214, 214, 214, 0.02));
+  background-image: -o-linear-gradient(top, rgba(255, 255, 255, 0.66), rgba(214, 214, 214, 0.02));
+  background-image: -ms-linear-gradient(top, rgba(255, 255, 255, 0.66), rgba(214, 214, 214, 0.02));
+  background-image: linear-gradient(top, rgba(255, 255, 255, 0.66), rgba(214, 214, 214, 0.02));
+  filter: progid:dximagetransform.microsoft.gradient(GradientType=0, StartColorStr='#ffffff', EndColorStr='#d6d6d6');
+}
+.addbar input {
+  outline: none;
+  border: 1px solid black;
+  padding: 0.4em 0.8em;
+  border-radius: 4px;
+  -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.4);
+  -moz-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.4);
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.4);
+  -webkit-transition: all 0.2s ease-out;
+  -moz-transition: all 0.2s ease-out;
+  transition: all 0.2s ease-out;
+  opacity: 0.75;
+}
+.addbar input:hover,
+.addbar input:focus {
+  opacity: 1;
+  -webkit-box-shadow: inset 0 2px 2px rgba(0, 0, 0, 0.5);
+  -moz-box-shadow: inset 0 2px 2px rgba(0, 0, 0, 0.5);
+  box-shadow: inset 0 2px 2px rgba(0, 0, 0, 0.5);
+}
+.addbar img {
+  opacity: 0.6;
+}
+.addbar img:hover {
+  opacity: 1;
+}
+.addbar button {
+  padding: 4px 12px 6px;
+  border-radius: 4px;
+  color: white;
+  font-size: 20px;
+  display: inline-block;
+  -webkit-transition: all 0.28s ease-out;
+  -moz-transition: all 0.28s ease-out;
+  transition: all 0.28s ease-out;
+}
+.addbar #add-event-controls {
+  position: absolute;
+  right: 8px;
+  top: 5px;
+}
+.addbar #add-new-event {
+  border: 1px solid #008e00;
+  background-color: #8efa00;
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#8efa00), to(#009d00));
+  background-image: -webkit-linear-gradient(top, #8efa00, #009d00);
+  background-image: -moz-linear-gradient(top, #8efa00, #009d00);
+  background-image: -o-linear-gradient(top, #8efa00, #009d00);
+  background-image: -ms-linear-gradient(top, #8efa00, #009d00);
+  background-image: linear-gradient(top, #8efa00, #009d00);
+  filter: progid:dximagetransform.microsoft.gradient(GradientType=0, StartColorStr='#8efa00', EndColorStr='#009d00');
+  opacity: 0.6;
+  margin-left: 24px;
+}
+.addbar #add-new-event:hover {
+  opacity: 0.9;
+  background-color: #83ea00;
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#83ea00), to(#008e00));
+  background-image: -webkit-linear-gradient(top, #83ea00, #008e00);
+  background-image: -moz-linear-gradient(top, #83ea00, #008e00);
+  background-image: -o-linear-gradient(top, #83ea00, #008e00);
+  background-image: -ms-linear-gradient(top, #83ea00, #008e00);
+  background-image: linear-gradient(top, #83ea00, #008e00);
+  filter: progid:dximagetransform.microsoft.gradient(GradientType=0, StartColorStr='#83ea00', EndColorStr='#008e00');
+}
+.addbar #add-new-event:active {
+  opacity: 1;
+  background-color: #008e00;
+  background-image: -webkit-gradient(radial, 50% 50%, 0, 50% 50%, 200, from(#86f000), to(#008e00));
+  background-image: -webkit-radial-gradient(50% 50%, #008e00, #86f000);
+  background-image: -moz-radial-gradient(50% 50%, #008e00, #86f000);
+  background-image: -o-radial-gradient(50% 50%, #008e00, #86f000);
+  background-image: -ms-radial-gradient(50% 50%, #008e00, #86f000);
+  background-image: radial-gradient(50% 50%, #008e00, #86f000);
+}
+.addbar #cancel-new-event {
+  background-color: #f82b08;
+  background-image: -webkit-gradient(radial, 50% 50%, 0, 50% 50%, 200, from(#941c17), to(#f82b08));
+  background-image: -webkit-radial-gradient(50% 50%, #f82b08, #941c17);
+  background-image: -moz-radial-gradient(50% 50%, #f82b08, #941c17);
+  background-image: -o-radial-gradient(50% 50%, #f82b08, #941c17);
+  background-image: -ms-radial-gradient(50% 50%, #f82b08, #941c17);
+  background-image: radial-gradient(50% 50%, #f82b08, #941c17);
+  border: 1px solid black;
+  opacity: 0.5;
+}
+.addbar #cancel-new-event:hover {
+  opacity: 0.9;
+  background-color: #f82b08;
+  background-image: -webkit-gradient(radial, 50% 100%, 0, 50% 100%, 200, from(#801714), to(#f82b08));
+  background-image: -webkit-radial-gradient(50% 100%, #f82b08, #801714);
+  background-image: -moz-radial-gradient(50% 100%, #f82b08, #801714);
+  background-image: -o-radial-gradient(50% 100%, #f82b08, #801714);
+  background-image: -ms-radial-gradient(50% 100%, #f82b08, #801714);
+  background-image: radial-gradient(50% 100%, #f82b08, #801714);
+}
+.addbar #cancel-new-event:active {
+  background-color: #801714;
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#801714), to(#f82b08));
+  background-image: -webkit-linear-gradient(top, #801714, #f82b08);
+  background-image: -moz-linear-gradient(top, #801714, #f82b08);
+  background-image: -o-linear-gradient(top, #801714, #f82b08);
+  background-image: -ms-linear-gradient(top, #801714, #f82b08);
+  background-image: linear-gradient(top, #801714, #f82b08);
+  filter: progid:dximagetransform.microsoft.gradient(GradientType=0, StartColorStr='#801714', EndColorStr='#f82b08');
+}
+.addbar #submit-new-event {
+  display: inline-block;
+  vertical-align: bottom;
+}
+.addbar #submit-new-event input,
+.addbar #submit-new-event label {
+  display: inline-block;
+}
+.addbar #submit-new-event img {
+  padding-top: 4px;
+  margin-bottom: -4px;
+}
+.addbar #submit-new-event input {
+  margin-right: 24px;
+  margin-left: 8px;
+}
+ul.time-input-list {
+  position: absolute;
+  height: 200px !important;
+  background-color: rgba(255, 255, 255, 0.9);
+  width: 120px;
+  overflow: auto;
+  overflow-y: auto;
+  overflow-x: none;
+  border: 1px solid #000;
+  z-index: 99;
+  list-style-type: none;
+  margin: 0px;
+  padding: 4px;
+}
+ul.time-input-list li {
+  margin: 0px;
+  padding: 0px;
+  text-align: center;
+  padding: 2px;
+  background: rgba(0, 0, 0, 0.01);
+  -webkit-transition: all 0.15s ease-out;
+  -moz-transition: all 0.15s ease-out;
+  transition: all 0.15s ease-out;
+}
+ul.time-input-list li.selected {
+  background: rgba(0, 0, 0, 0.55);
+  border-radius: 2px;
+  color: white;
+  cursor: pointer;
+}
+/*		Tablet Layout: 768px.
+		Gutters: 24px.
+		Outer margins: 28px.
+		Inherits styles from: Default Layout.
+-----------------------------------------------------------------
+cols    1     2      3      4      5      6      7      8
+px      68    160    252    344    436    528    620    712    */
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+  body {
+    width: 712px;
+    padding: 32px 28px 60px;
+  }
+}
+/*		Mobile Layout: 320px.
+		Gutters: 24px.
+		Outer margins: 34px.
+		Inherits styles from: Default Layout.
+---------------------------------------------
+cols    1     2      3
+px      68    160    252    */
+@media only screen and (max-width: 767px) {
+  body {
+    width: 252px;
+    padding: 24px 34px 60px;
+  }
+}
+/*		Wide Mobile Layout: 480px.
+		Gutters: 24px.
+		Outer margins: 22px.
+		Inherits styles from: Default Layout, Mobile Layout.
+------------------------------------------------------------
+cols    1     2      3      4      5
+px      68    160    252    344    436    */
+@media only screen and (min-width: 480px) and (max-width: 767px) {
+  body {
+    width: 436px;
+    padding: 24px 22px 48px;
+  }
+}
+.tipsy {
+  font-size: 10px;
+  position: absolute;
+  padding: 5px;
+  z-index: 100000;
+}
+.tipsy-inner {
+  background-color: #FFF;
+  color: #000;
+  max-width: 200px;
+  padding: 0px 8px;
+  text-align: center;
+}
+/* Rounded corners */
+.tipsy-inner {
+  border-radius: 3px;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+}
+/* Uncomment for shadow */
+/*.tipsy-inner { box-shadow: 0 0 5px #000000; -webkit-box-shadow: 0 0 5px #000000; -moz-box-shadow: 0 0 5px #000000; }*/
+.tipsy-arrow {
+  position: absolute;
+  width: 0;
+  height: 0;
+  line-height: 0;
+  border: 5px dashed #FFF;
+}
+/* Rules to colour arrows */
+.tipsy-arrow-n {
+  border-bottom-color: #FFF;
+}
+.tipsy-arrow-s {
+  border-top-color: #FFF;
+}
+.tipsy-arrow-e {
+  border-left-color: #FFF;
+}
+.tipsy-arrow-w {
+  border-right-color: #FFF;
+}
+.tipsy-n .tipsy-arrow {
+  top: 0px;
+  left: 50%;
+  margin-left: -5px;
+  border-bottom-style: solid;
+  border-top: none;
+  border-left-color: transparent;
+  border-right-color: transparent;
+}
+.tipsy-nw .tipsy-arrow {
+  top: 0;
+  left: 10px;
+  border-bottom-style: solid;
+  border-top: none;
+  border-left-color: transparent;
+  border-right-color: transparent;
+}
+.tipsy-ne .tipsy-arrow {
+  top: 0;
+  right: 10px;
+  border-bottom-style: solid;
+  border-top: none;
+  border-left-color: transparent;
+  border-right-color: transparent;
+}
+.tipsy-s .tipsy-arrow {
+  bottom: 0;
+  left: 50%;
+  margin-left: -5px;
+  border-top-style: solid;
+  border-bottom: none;
+  border-left-color: transparent;
+  border-right-color: transparent;
+}
+.tipsy-sw .tipsy-arrow {
+  bottom: 0;
+  left: 10px;
+  border-top-style: solid;
+  border-bottom: none;
+  border-left-color: transparent;
+  border-right-color: transparent;
+}
+.tipsy-se .tipsy-arrow {
+  bottom: 0;
+  right: 10px;
+  border-top-style: solid;
+  border-bottom: none;
+  border-left-color: transparent;
+  border-right-color: transparent;
+}
+.tipsy-e .tipsy-arrow {
+  right: 0;
+  top: 50%;
+  margin-top: -5px;
+  border-left-style: solid;
+  border-right: none;
+  border-top-color: transparent;
+  border-bottom-color: transparent;
+}
+.tipsy-w .tipsy-arrow {
+  left: 0;
+  top: 50%;
+  margin-top: -5px;
+  border-right-style: solid;
+  border-left: none;
+  border-top-color: transparent;
+  border-bottom-color: transparent;
+}

@@ -492,10 +492,13 @@ h1 {
     #add-event-controls {
         position: absolute;
         right: 8px;
-        top: 5px;
+        top: 2px;
     }
     
     #add-new-event {
+        
+        color: black;
+        text-shadow:rgba(240, 240, 240, 0.8) 0px 1px 1px; 
 
         
         border: 1px solid #008e00;        
@@ -509,12 +512,12 @@ h1 {
         filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,StartColorStr='#8efa00', EndColorStr='#009d00');
         
         
-        opacity: 0.6;
+        opacity: 0.75;
 
         margin-left: 24px;
         
         &:hover {
-            opacity: 0.9;
+            opacity: 0.95;
             background-color: #83ea00;
             background-image: -webkit-gradient(linear, left top, left bottom, from(rgb(131, 234, 0)), to(rgb(0, 142, 0)));
             background-image: -webkit-linear-gradient(top, rgb(131, 234, 0), rgb(0, 142, 0));
@@ -539,6 +542,10 @@ h1 {
     }
     
     #cancel-new-event {
+        
+        color: black;
+        text-shadow:rgba(240, 240, 240, 0.4) 0px 1px 1px;
+        
         background-color: #f82b08;
         background-image: -webkit-gradient(radial, 50% 50%,0,50% 50%,200, from(rgb(148, 28, 23)), to(rgb(248, 43, 8)));
         background-image: -webkit-radial-gradient(50% 50%, rgb(248, 43, 8), rgb(148, 28, 23));
@@ -590,9 +597,12 @@ h1 {
         }
         input {
             margin-right: 24px;
-            margin-left: 8px;
+            margin-left: 8px;        
+            height: 24px;
         }
-        label {
+        img{
+            vertical-align: top;
+
         }
     }
 }

@@ -70,6 +70,7 @@ fillOutEvents = (marchevents) ->
     #
     # Make D3 timeline
     #
+    ###
     width = 1100
     height = 50
 
@@ -86,19 +87,18 @@ fillOutEvents = (marchevents) ->
     starttime = _.min(marchevents, (event) ->
         decodeTime(event.time)
     )
-    starttime = decodeTime(starttime.time)
+
+    #starttime = decodeTime(starttime.time)
 
     endtime = _.max(marchevents, (event) ->
         decodeTime(event.time)
     )
-    endtime = decodeTime(endtime.time)
-    
+    #endtime = decodeTime(endtime.time)
+      
+
 
 
     svg = d3.select("#timeline").attr("width", width).attr("height", height)
-
-
-
 
     console.log "timesszes", starttime, endtime
 
@@ -179,6 +179,7 @@ fillOutEvents = (marchevents) ->
           infoWindow.setPosition(boxLatLng)
           infoWindow.open(map.map)
     )
+    ###
 
     console.log 'events', marchevents
     #
@@ -302,9 +303,7 @@ fillOutEvents = (marchevents) ->
 
     
 $(document).ready(->        
-        eventid = $('#eventnumber').val();
-        
-#        $('body').prepend("Loading "+eventid)
+        eventid = $('#eventnumber').val();        
 
         $.ajax('/listevents?eventid='+eventid, {
           type: 'GET'

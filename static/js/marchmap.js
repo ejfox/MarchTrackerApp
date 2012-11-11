@@ -47,7 +47,7 @@ marchevents =[
   city = "Oakland, CA";
 
   fillOutEvents = function(marchevents) {
-    var decodeTime, defaultZoom, endtime, event, height, infoWindow, longdateformat, map, starttime, svg, timescale, width, xAxis;
+    var defaultZoom, infoWindow, map;
     defaultZoom = 16;
     map = new GMaps({
       div: '#map',
@@ -68,63 +68,117 @@ marchevents =[
     $(".mapzoomreset").on("click", function() {
       return map.setZoom(defaultZoom);
     });
-    width = 1100;
-    height = 50;
-    new Date(2012, 9, 2);
-    longdateformat = d3.time.format("%y%m%d%H%M%S");
-    decodeTime = function(datestring) {
-      if (datestring !== null || "" || "null" || "Time") {
-        return Date.parse(datestring);
-      } else {
-        console.log("Problem with the datestring, it could be null or an improper value.");
-        return false;
-      }
-    };
-    starttime = _.min(marchevents, function(event) {
-      return decodeTime(event.time);
-    });
-    starttime = decodeTime(starttime.time);
-    endtime = _.max(marchevents, function(event) {
-      return decodeTime(event.time);
-    });
-    endtime = decodeTime(endtime.time);
-    svg = d3.select("#timeline").attr("width", width).attr("height", height);
-    console.log("timesszes", starttime, endtime);
-    timescale = d3.time.scale().domain([starttime, endtime]).range([12, width - 12]);
-    xAxis = d3.svg.axis().scale(timescale).orient("bottom").ticks(5).tickSize(0).tickPadding(6);
-    svg.append('g').attr('class', 'x axis').attr('transform', 'translate(0, 28)').style('font-size', 9).style('opacity', 0.5).call(xAxis);
-    svg.append("svg:line").attr("y1", 20).attr("y2", 20).attr("x1", 0).attr("x2", width).style("stroke-width", 2).style("stroke", "#CCC");
-    event = svg.selectAll(".event").data(marchevents).enter().append("svg:g").attr("class", "event").attr("transform", function(d, i) {
-      return "translate(" + timescale(Date.parse(d.time)) + ",20)";
-    });
-    event.append("svg:text").text(function(d, i) {
-      return d.time;
-    }).attr("text-anchor", "middle").attr("transform", "translate(0, -10)").style("font-size", 11);
-    event.append("svg:circle").attr("class", "eventcircle").attr("r", 6).style("opacity", 0.5).attr("fill", "black").attr("cx", function(d, i) {
-      return 0;
-    }).attr("title", function(d, i) {
-      return d.text;
-    }).style("cursor", "pointer").on("click", function(thisevent) {
-      var boxLatLng, infoBoxContent;
-      console.log(thisevent);
-      map.setCenter(thisevent.lat, thisevent.lng);
-      map.setZoom(18);
-      boxLatLng = new google.maps.LatLng(thisevent.lat, thisevent.lng);
-      infoBoxContent = function(event) {
-        var boxcontent;
-        boxcontent = event.text;
-        if (event.img !== void 0) {
-          boxcontent += " <img style='width: 320px;' src='" + event.img + "' />";
-        }
-        return boxcontent;
-      };
-      infoWindow.setOptions({
-        maxWidth: 320
-      });
-      infoWindow.setContent(infoBoxContent(thisevent));
-      infoWindow.setPosition(boxLatLng);
-      return infoWindow.open(map.map);
-    });
+    /*
+        width = 1100
+        height = 50
+    
+        new Date(2012, 9, 2, )
+        longdateformat = d3.time.format("%y%m%d%H%M%S")      
+    
+        decodeTime = (datestring) ->
+            if datestring isnt null or "" or "null" or "Time" 
+                Date.parse(datestring)
+            else
+                console.log "Problem with the datestring, it could be null or an improper value."
+                return false
+            
+        starttime = _.min(marchevents, (event) ->
+            decodeTime(event.time)
+        )
+    
+        #starttime = decodeTime(starttime.time)
+    
+        endtime = _.max(marchevents, (event) ->
+            decodeTime(event.time)
+        )
+        #endtime = decodeTime(endtime.time)
+          
+    
+    
+    
+        svg = d3.select("#timeline").attr("width", width).attr("height", height)
+    
+        console.log "timesszes", starttime, endtime
+    
+        timescale = d3.time.scale()
+          .domain([starttime, endtime])
+          .range([12, width-12])
+    
+        xAxis = d3.svg.axis().scale(timescale).orient("bottom").ticks(5).tickSize(0).tickPadding(6)
+    
+        svg.append('g')
+            .attr('class', 'x axis')
+            .attr('transform', 'translate(0, 28)')
+            .style('font-size', 9)
+            .style('opacity', 0.5)
+            .call(xAxis);
+    
+    
+        svg.append("svg:line")
+          .attr("y1", 20)
+          .attr("y2", 20)
+          .attr("x1", 0)
+          .attr("x2", width)
+          .style("stroke-width", 2)
+          .style("stroke", "#CCC")
+    
+        event = svg.selectAll(".event")
+        .data(marchevents)
+        .enter().append("svg:g").attr("class", "event")
+            .attr("transform", (d,i) ->
+                "translate("+timescale(Date.parse(d.time))+",20)"
+            )
+        
+        event.append("svg:text")
+            .text((d,i) ->
+                d.time
+            )
+            .attr("text-anchor", "middle")
+            .attr("transform", "translate(0, -10)")
+            .style("font-size", 11)
+        
+        event.append("svg:circle")
+          .attr("class", "eventcircle")
+          .attr("r", 6)
+          .style("opacity", 0.5)
+          .attr("fill", "black")
+          .attr("cx", (d,i) -> 
+              #startTime = new Date();
+              #time = d.time.match(/(\d+)(?::(\d\d))?\s*(p?)/)
+              #startTime.setHours(parseInt(time[1]) + (time[3] ? 12 : 0) )
+              #startTime.setMinutes( parseInt(time[2]) || 0 )
+    
+              #console.log "sturt", startTime
+              #timescale(startTime)
+              return 0
+          )
+      
+          .attr("title", (d,i) ->
+              d.text
+          )
+          .style("cursor", "pointer")
+        #      .attr("cy", 20)
+          .on("click", (thisevent) ->
+              console.log(thisevent)
+              map.setCenter(thisevent.lat, thisevent.lng)
+              map.setZoom(18)
+    
+              boxLatLng = new google.maps.LatLng(thisevent.lat, thisevent.lng)                        
+              infoBoxContent = (event) ->
+                  boxcontent = event.text
+                  if event.img isnt undefined
+                      boxcontent += " <img style='width: 320px;' src='"+event.img+"' />"
+                  return boxcontent
+    
+              infoWindow.setOptions({
+                  maxWidth: 320
+              })
+              infoWindow.setContent(infoBoxContent(thisevent))
+              infoWindow.setPosition(boxLatLng)
+              infoWindow.open(map.map)
+        )
+    */
+
     console.log('events', marchevents);
     return _.each(marchevents, function(event, i) {
       return GMaps.geocode({

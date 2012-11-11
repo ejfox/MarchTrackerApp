@@ -141,11 +141,15 @@ server.get('/newevent', function(req,res){
 
 server.get('/listevents', function(req,res){
 	var allresults = [];
-    
-    var eventID = parseInt(req.query['eventid']);
         
+    var eventID = 4
+    
+    if(req.query['eventid'] != null && req.query['eventid'] != undefined) {
+        eventID = req.query['eventid'];
+    }
+        
+//    var results = db.marchtrackertest.find({eventid: eventID}, function(error, result){	
     var results = db.marchtrackertest.find({eventid: eventID}, function(error, result){	
-
 //        res.set('Access-Control-Allow-Origin',"*")
 		console.log(">",error, result)		
 		res.send(result);
